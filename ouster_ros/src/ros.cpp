@@ -34,8 +34,8 @@ sensor_msgs::Imu packet_to_imu_msg(const PacketMsg& p, const std::string& frame,
     const double standard_g = 9.80665;
     sensor_msgs::Imu m;
     const uint8_t* buf = p.buf.data();
-
-    m.header.stamp.fromNSec(pf.imu_gyro_ts(buf));
+    const long int tai_utc_offset = 37e9;
+    m.header.stamp.fromNSec(pf.imu_gyro_ts(buf)-tai_utc_offset);
     m.header.frame_id = frame;
 
     m.orientation.x = 0;
