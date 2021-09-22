@@ -66,10 +66,9 @@ int main(int argc, char** argv) {
                     return h.timestamp != std::chrono::nanoseconds{0};
                 });
             if (h != ls.headers.end()) {
-                std::chrono::duration<long int> tai_utc_offset = std::chrono::duration<long int>(37);
-                scan_to_cloud(xyz_lut, h->timestamp-tai_utc_offset, ls, cloud);
+                scan_to_cloud(xyz_lut, h->timestamp, ls, cloud);
                 lidar_pub.publish(ouster_ros::cloud_to_cloud_msg(
-                    cloud, h->timestamp-tai_utc_offset, sensor_frame));
+                    cloud, h->timestamp, sensor_frame));
             }
         }
     };
